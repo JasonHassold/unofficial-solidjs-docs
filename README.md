@@ -1,1 +1,1 @@
-# unofficial-solidjs-docs
+# Unofficial SolidJS Docs
