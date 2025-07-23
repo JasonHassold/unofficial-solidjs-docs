@@ -1,0 +1,32 @@
+{
+  "name": "unofficial-solid-docs",
+  "type": "module",
+  "scripts": {
+    "dev": "vinxi dev",
+    "build": "vinxi build",
+    "start": "vinxi start"
+  },
+  "dependencies": {
+    "@kobalte/solidbase": "^0.2.16",
+    "@solidjs/router": "^0.15.0",
+    "@solidjs/start": "^1.1.0",
+    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/vite": "^4.0.7",
+    "prettier": "^3.6.2",
+    "shiki": "^3.8.1",
+    "solid-heroicons": "^3.2.4",
+    "solid-js": "^1.9.5",
+    "tailwindcss": "^4.0.7",
+    "vinxi": "^0.5.7"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "trustedDependencies": [
+    "@parcel/watcher",
+    "@tailwindcss/oxide"
+  ],
+  "devDependencies": {
+    "@iconify-json/ri": "^1.2.5"
+  }
+}

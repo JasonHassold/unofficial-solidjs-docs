@@ -1,0 +1,118 @@
+SolidJS is a fast and flexible framework for building reactive user interfaces.
+
+The reactivity system is built up from a powerful set of tools known as primitives.
+
+From these simple reactive building blocks you can create large-scale UIs where state changes trigger efficient & precise updates.
+
+```tsx
+import { render } from 'solid-js/web'
+import { createSignal } from 'solid-js'
+
+function Counter() {
+  const [count, setCount] = createSignal(0) // Signal
+  const increment = () => setCount((prev) => prev + 1)
+
+  return (
+    <div>
+      <span>Count: {count()}</span> {/* Only `count()` is updated when the button is clicked. */}
+      <button type="button" onClick={increment}>
+        Increment
+      </button>
+    </div>
+  )
+}
+
+render(() => <Counter />, document.getElementById('app')!)
+```
+
+[SolidJS Playground](https://playground.solidjs.com/anonymous/31a0eb5f-5e99-4461-a453-e8a8a67aa354)
+
+# Rendering (JSX)
+
+JSX is what SolidJS uses to render elements. It is an extension for JavaScript that allows you to write HTML-like code inside your JavaScript file which keeps your rendering logic and content in the same place. This provides a concise and readable way to create and represent components.
+
+It offers a distinct advantages like being able to copy/paste solutions from resources like Stack Overflow or use templates from design tools. Solid sets itself apart by using JSX to immediately return [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction) elements. This lets you use expressions within your HTML by allowing variables and functions to be references with the use of curly braces `{ }`
+
+```tsx
+const Component = () => {
+  const animal = { breed: 'cat', name: 'Midnight' }
+
+  return (
+    <p>
+      I have a {animal.breed} named {animal.name}!
+    </p>
+  )
+}
+```
+
+# Reactivity System
+
+Reactivity is taking action when data changes. Fine-grained reactivity is taking only the specific actions needed for specific changes in data.
+
+## Signals
+
+Signals are the most primary reactive primitive. They allow you to store a piece of data and trigger updates when it changes.
+
+```tsx
+const [count, setCount] = createSignal(0)
+//     ^ getter  ^ setter
+
+// read a value
+console.log(count()) // 0
+
+// set a value
+setCount(5)
+console.log(count()) // 5
+```
+
+This just looks like a regular variable with extra steps. The real value comes from combining signals with subscribers.
+
+## Subscribers
+
+\*aka effects, computations, watchers, reactions
+
+Subscribers are functions that subscribe to signals and do something when they update.
+
+```tsx
+import { createSignal, createEffect } from 'solid-js'
+
+console.log('1. Create Signal')
+const [count, setCount] = createSignal(0)
+
+console.log('2. Create Reaction')
+// subscribes to signals used inside and re-runs when they update
+createEffect(() => console.log('The count is', count()))
+
+console.log('3. Set count to 5')
+setCount(5)
+
+console.log('4. Set count to 10')
+setCount(10)
+
+/*
+1. Create Signal
+2. Create Reaction
+The count is 0
+3. Set count to 5
+The count is 5
+4. Set count to 10
+The count is 10
+*/
+```
+
+[SolidJS Playground](https://playground.solidjs.com/anonymous/6e61db05-5d32-4361-952c-d4eeb1d1f25b)
+
+This looks a bit like magic at first, but it is the reason that signals need getters. Whenever the signal's getter is executed the wrapping function detects it and automatically subscribes to it.
+
+Subscriptions happen automatically when they are used inside a tracking scope.
+
+## Tracking scope
+
+Think of tracking scopes as zones of reactivity. When signals are used inside of a tracking scope, it automatically subscribes to that signal and will rerun when any of the subscribed signals change.
+
+Solid creates these scopes for you in key places:
+
+1. **Subscriber Primitives**: The function passed to createEffect is a tracking scope.
+2. **JSX**: The expressions {} inside your JSX are wrapped in tracking scopes. This is how your view stays up-to-date.
+
+The key takeaway is that reactivity is contextual. If you read a signal's value _outside_ of a tracking scope, it will simply return the current value without creating a subscription. The code will not re-run when the signal changes.

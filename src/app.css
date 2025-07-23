@@ -1,0 +1,14 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@theme {
+  --font-inter: 'Inter', sans-serif;
+}
+
+html {
+  --sb-font-headings: 'Inter', sans-serif;
+  --sb-font-text: 'Inter', sans-serif;
+  --sb-font-mono: 'Inter', sans-serif;
+}
