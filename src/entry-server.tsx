@@ -1,11 +1,10 @@
 // @refresh reload
 import { createHandler, StartServer } from '@solidjs/start/server'
-import { getHtmlProps } from '@kobalte/solidbase/server'
 
 export default createHandler(() => (
   <StartServer
     document={({ assets, children, scripts }) => (
-      <html {...getHtmlProps()}>
+      <html class="dark">
         <head>
           <meta charset="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -13,9 +12,10 @@ export default createHandler(() => (
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
           <link
-            href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Geist+Mono&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
             rel="stylesheet"
-          />
+          ></link>
+          <script src="/scripts/browser-specific.js" type="module" />
           {assets}
         </head>
         <body class="font-inter dark:bg-slate-900 dark:text-slate-100 text-slate-900 bg-slate-100">
