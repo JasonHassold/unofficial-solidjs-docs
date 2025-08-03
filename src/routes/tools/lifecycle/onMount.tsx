@@ -1,4 +1,4 @@
-import Code from '~/components/code'
+import { CodeBlock } from '~/components/code'
 import { H1, H2 } from '~/components/headers'
 
 export default function onMount() {
@@ -15,7 +15,7 @@ export default function onMount() {
         non-tracking, which is equivalent to a <code>createEffect</code> with no dependencies.
       </p>
 
-      <Code
+      <CodeBlock
         code={`// example that shoes how to use onMount to get a ref to an element
 import { render } from "solid-js/web"
 import { onMount } from "solid-js"
@@ -32,8 +32,10 @@ function Component() {
 
 render(() => <Component />, document.getElementById("app")!)`}
       />
+
       <H2 text="Definition" />
-      <Code code={`function onMount(fn: () => void): void;`} />
+
+      <CodeBlock code={`function onMount(fn: () => void): void;`} />
     </article>
   )
 }

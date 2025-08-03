@@ -15,7 +15,7 @@ export default function (props: RouteSectionProps) {
   const location = useLocation()
 
   createEffect(
-    on([() => props.children, () => location.pathname], () => {
+    on([() => location.pathname], () => {
       setTimeout(() => {
         if (!contentRef) return
         const headingElements = contentRef.querySelectorAll('h1, h2, h3')
@@ -53,6 +53,9 @@ export default function (props: RouteSectionProps) {
               <NavItemGroup title="Lifecycle">
                 <NavItem href="/tools/lifecycle/onMount">onMount</NavItem>
                 <NavItem href="/tools/lifecycle/onCleanup">onCleanup</NavItem>
+              </NavItemGroup>
+              <NavItemGroup title="Primitives">
+                <NavItem href="/tools/primitives/createRoot">createRoot()</NavItem>
               </NavItemGroup>
             </NavItemGroup>
             <NavItem href="/about">About</NavItem>

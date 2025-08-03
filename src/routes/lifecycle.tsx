@@ -1,5 +1,4 @@
-import Code from '~/components/code'
-import { H1, H2 } from '~/components/headers'
+import { H1 } from '~/components/headers'
 
 export default function Lifecycle() {
   return (

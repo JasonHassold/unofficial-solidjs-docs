@@ -25,10 +25,8 @@ export async function formatCode(code: string) {
  * @param fileName        File name for the source
  * @param options         Options
  */
-async function transform(code: string): Promise<string> {
+export async function transformTsToJs(code: string): Promise<string> {
   code = await removeTypes(code)
-
-  code = await formatCode(code)
 
   return code
 }
@@ -98,7 +96,6 @@ async function removeTypes(code: string) {
     )
   } catch (error: any) {
     // If Babel transformation fails, return the original code
-    console.warn('Babel transformation failed:', error.message)
     return code
   }
 }
@@ -173,9 +170,3 @@ export function processMagicComments(input: string): string {
 
 //   return code
 // }
-
-export async function transformCode(code: string) {
-  const jsCode = await transform(code)
-
-  return jsCode
-}

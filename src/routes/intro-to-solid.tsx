@@ -1,4 +1,4 @@
-import Code from '~/components/code'
+import { CodeBlock } from '~/components/code'
 import { H1, H2 } from '~/components/headers'
 
 export default function IntroToSolid() {
@@ -15,7 +15,7 @@ export default function IntroToSolid() {
         precise updates.
       </p>
 
-      <Code
+      <CodeBlock
         code={`import { render } from 'solid-js/web'
 import { createSignal } from 'solid-js'
 
@@ -55,7 +55,7 @@ render(() => <Counter />, document.getElementById('app')!)`}
         when it changes.
       </p>
 
-      <Code
+      <CodeBlock
         code={`const [count, setCount] = createSignal(0)
 //     ^ getter  ^ setter
 
@@ -80,7 +80,7 @@ console.log(count()) // 5`}
 
       <p>Subscribers are functions that automatically re-run when the signals they subscribe to update.</p>
 
-      <Code
+      <CodeBlock
         code={`import { createSignal, createEffect } from 'solid-js'
 
 console.log('1. Create Signal')
@@ -153,7 +153,7 @@ The count is 10`}
         references with the use of curly braces {'{ }'}
       </p>
 
-      <Code
+      <CodeBlock
         code={`const Component = () => {
   const animal = { breed: 'cat', name: 'Midnight' }
 

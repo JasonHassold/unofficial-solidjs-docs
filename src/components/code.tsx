@@ -2,20 +2,29 @@ import { createResource, Show, createSignal } from 'solid-js'
 import { codeToHtml } from 'shiki'
 import { Icon } from 'solid-heroicons'
 import { commandLine } from 'solid-heroicons/outline'
-import { transformCode, formatCode } from '~/lib/transform'
+import { transformTsToJs, formatCode } from '~/lib/transform'
 import { cn } from '~/lib/tw-merge'
 
 import { TypeScriptIcon, JavaScriptIcon } from '~/components/icons'
 
-export default function Code(props: { code: string; console?: string; solidPlaygroundLink?: string }) {
+export function CodeBlock(props: {
+  code: string
+  console?: string
+  solidPlaygroundLink?: string
+  format?: boolean
+  tsToJs?: boolean
+}) {
+  const format = props.format ?? true
+  const tsToJs = props.tsToJs ?? true
+
   const [language, setLanguage] = createSignal<'tsx' | 'jsx'>('tsx')
 
   const [codeHtml] = createResource(
     () => props.code,
     async (code) => {
-      const formattedCode = await formatCode(code)
+      let _code = format ? await formatCode(code) : code
 
-      return codeToHtml(formattedCode, {
+      return codeToHtml(_code, {
         lang: 'tsx',
         themes: {
           light: 'material-theme',
@@ -35,11 +44,13 @@ export default function Code(props: { code: string; console?: string; solidPlayg
   const [jsCodeHtml] = createResource(
     () => props.code,
     async (code) => {
-      const jsCode = await transformCode(code)
+      let _code = tsToJs ? await transformTsToJs(code) : code
 
-      if (jsCode.trim().length === 0) return ''
+      _code = format ? await formatCode(_code) : _code
 
-      return codeToHtml(jsCode, {
+      if (_code.trim().length === 0) return ''
+
+      return codeToHtml(_code, {
         lang: 'jsx',
         themes: {
           light: 'material-theme',

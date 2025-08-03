@@ -1,4 +1,4 @@
-import Code from '~/components/code'
+import { CodeBlock } from '~/components/code'
 import { H1 } from '~/components/headers'
 
 export default function ShowPage() {
@@ -11,7 +11,7 @@ export default function ShowPage() {
         <code>when</code> prop is truthy, and renders <code>fallback</code> otherwise.
       </p>
 
-      <Code
+      <CodeBlock
         code={`import { Show } from "solid-js"
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
 
       <p>Similar to an if/else statement or a ternary expression</p>
 
-      <Code
+      <CodeBlock
         code={`if (when) return children 
 else return fallback
 // or
@@ -37,11 +37,15 @@ return when ? children : fallback`}
         value.
       </p>
 
-      <Code
+      <CodeBlock
         code={`<Show when={user()}>
   {(user) => <h1>Hi, I am {user.name}</h1>}
 </Show>`}
+        format={false}
+        tsToJs={false}
       />
+
+      <br />
 
       <div class="bg-sky-900/40 dark:bg-sky-400/20 p-4 rounded-lg my-4 border-l-4 border-sky-600 dark:border-sky-400">
         <p class="!my-0">
@@ -50,13 +54,18 @@ return when ? children : fallback`}
         </p>
       </div>
 
-      <Code
+      <CodeBlock
         code={`<Show  
-	when={!data.loading} 
-	children={<h1>Hi, I am {data().name}</h1>}
-	fallback={<div>Loading...</div>}
+  when={!data.loading} 
+  children={<h1>Hi, I am {data().name}</h1>}
+  fallback={<div>Loading...</div>}
 />`}
+        format={false}
+        tsToJs={false}
       />
+
+      <br />
+      <br />
 
       <H1 text="Why use Show?" />
 
@@ -118,7 +127,7 @@ return when ? children : fallback`}
         effectively unkeyed since there is no value to trigger the children to re-execute.
       </p>
 
-      <Code
+      <CodeBlock
         code={`import { render } from "solid-js/web";
 import { createSignal, Show } from "solid-js";
 
@@ -173,7 +182,7 @@ Test keyed 6
         user changes.
       </p>
 
-      <Code
+      <CodeBlock
         code={`import { render } from "solid-js/web";
 import { createSignal, Show } from "solid-js";
 
@@ -211,13 +220,14 @@ render(() => <App />, document.getElementById("app")!);`}
 - The <h1> updates from "Alice" to "Bob".
 - The "Likes" count **remains the same**. It is not reset because the ProfileCard component itself was never destroyed.`}
         solidPlaygroundLink="https://playground.solidjs.com/anonymous/496ed6ca-6f04-4aa7-a4ae-232c95cc12e5"
+        tsToJs={false}
       />
 
       <p>
         With <code>keyed</code> the <code>&lt;ProfileCard&gt;</code> will be destroyed and recreated when the user
         changes
       </p>
-      <Code
+      <CodeBlock
         code={`// ...
 <Show when={user()} keyed>
   {(u) => <ProfileCard user={u} />}
@@ -230,10 +240,14 @@ render(() => <App />, document.getElementById("app")!);`}
         solidPlaygroundLink="https://playground.solidjs.com/anonymous/1112f16a-0882-48b2-a6d8-b29eee149f0a"
       />
 
+      <br />
+      <br />
+
       <H1 text="Definition" />
 
       <p>
         <a
+          class="border-b border-blue-500 no-underline hover:border-blue-300"
           href="https://github.com/solidjs/solid/blob/3d3207dd3aeb84c2a38377cf9f3b895995c2d969/packages/solid/src/render/flow.ts#L82-L149"
           target="_blank"
           rel="noopener noreferrer"
@@ -252,7 +266,9 @@ render(() => <App />, document.getElementById("app")!);`}
         </thead>
         <tbody>
           <tr>
-            <td>when</td>
+            <td>
+              <code>when</code>
+            </td>
             <td>
               <code>true</code>
             </td>
@@ -262,16 +278,9 @@ render(() => <App />, document.getElementById("app")!);`}
             </td>
           </tr>
           <tr>
-            <td>children</td>
             <td>
-              <code>true</code>
+              <code>keyed</code>
             </td>
-            <td>
-              elements or function to render if the <code>when</code> condition is truthy
-            </td>
-          </tr>
-          <tr>
-            <td>keyed</td>
             <td>
               <code>false</code>
             </td>
@@ -280,7 +289,9 @@ render(() => <App />, document.getElementById("app")!);`}
             </td>
           </tr>
           <tr>
-            <td>fallback</td>
+            <td>
+              <code>fallback</code>
+            </td>
             <td>
               <code>false</code>
             </td>
@@ -288,10 +299,21 @@ render(() => <App />, document.getElementById("app")!);`}
               elements to render if the <code>when</code> condition is falsy
             </td>
           </tr>
+          <tr>
+            <td>
+              <code>children</code>
+            </td>
+            <td>
+              <code>true</code>
+            </td>
+            <td>
+              elements or function to render if the <code>when</code> condition is truthy
+            </td>
+          </tr>
         </tbody>
       </table>
 
-      <Code
+      <CodeBlock
         code={`function Show<
   T,
   TRenderFunction extends (item: Accessor<NonNullable<T>>) => JSX.Element

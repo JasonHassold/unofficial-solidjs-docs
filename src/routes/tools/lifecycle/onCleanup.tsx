@@ -1,4 +1,4 @@
-import Code from '~/components/code'
+import { CodeBlock } from '~/components/code'
 import { H1, H2 } from '~/components/headers'
 
 export default function onCleanup() {
@@ -23,7 +23,7 @@ export default function onCleanup() {
         issues.
       </p>
 
-      <Code
+      <CodeBlock
         code={`import { render } from "solid-js/web"
 import { createSignal, onCleanup } from "solid-js"
 
@@ -44,7 +44,7 @@ render(() => <Component />, document.getElementById("app")!)`}
       />
 
       <H2 text="Definition" />
-      <Code code={`function onCleanup(fn: () => void): void;`} />
+      <CodeBlock code={`function onCleanup(fn: () => void): void;`} />
     </article>
   )
 }
